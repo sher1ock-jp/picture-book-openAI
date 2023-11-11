@@ -1,0 +1,19 @@
+# requirements.txt
+
+# Web Framework
+Flask==1.1.2
+
+# Database
+SQLAlchemy==1.3.23
+
+# OpenAI API
+openai==0.27.0
+
+# Image Processing
+Pillow==8.2.0
+
+# HTTP Requests
+requests==2.25.1
+
+# Python-dotenv to use .env files
+python-dotenv==0.17.1

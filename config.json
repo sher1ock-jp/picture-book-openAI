@@ -1,0 +1,16 @@
+{
+    "openai_api": {
+        "api_key": "your_openai_api_key_here"
+    },
+    "database": {
+        "host": "localhost",
+        "port": 27017,
+        "username": "your_username_here",
+        "password": "your_password_here",
+        "database_name": "your_database_name_here"
+    },
+    "server": {
+        "host": "localhost",
+        "port": 8000
+    }
+}
