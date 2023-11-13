@@ -3,21 +3,28 @@ import axios from 'axios';
 
 const CreatePage = () => {
   const [prompt, setPrompt] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [images, setImages] = useState<string[]>([]);
   const [error, setError] = useState('');
 
+  const maxImages = 10;
+
   const handleGenerateImage = async () => {
-    setError(''); // Clear any previous errors
+    setError('');
     if (!prompt) {
       setError('Please enter a prompt.');
       return;
     }
+
+    if (images.length >= maxImages) {
+      setError(`You have reached the maximum number of images (${maxImages}).`);
+      return;
+    }
     
     try {
-      // Call the backend API to generate images
       const response = await axios.post('http://127.0.0.1:5000/api/generate-image', { prompt });
       console.log('Response:', response);
-      setImageUrl(response.data.url); // Assuming the backend responds with { url: 'image_url' }
+      setImages([...images, response.data.url]); 
+      setPrompt('');
     } catch (error) {
       console.error('Error generating image:', error);
       setError('Failed to generate image. Please try again later.');
@@ -25,25 +32,35 @@ const CreatePage = () => {
   };
 
   return (
-    <div className="create-page p-6">
-      <textarea
-        className="textarea w-full h-32 p-2 border rounded mb-4"
-        value={prompt}
-        onChange={(e) => setPrompt(e.target.value)}
-        placeholder="Enter prompts for your picture-book..."
-      />
-      <button
-        className="btn bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        onClick={handleGenerateImage}
-      >
-        Generate Image
-      </button>
-      {error && <p className="text-red-500">{error}</p>}
-      {imageUrl && (
-        <div className="image-gallery mt-4">
-          <img src={imageUrl} alt="Generated" className="rounded shadow-lg max-w-full h-auto" />
+    <div className="create-page bg-gradient-to-r from-cyan-300 via-purple-400 to-pink-300 min-h-screen flex flex-col justify-center items-center px-4 sm:px-10 py-8">
+      <div className="prompt-area mb-4 p-4 border rounded shadow-lg w-full max-w-md">
+        <textarea
+          className="w-full p-2 resize-none"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Enter your creative prompt here"
+          style={{ fontFamily: 'Futura, sans-serif', minHeight: '4rem' }}
+        />
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full shadow-lg transition-all duration-300 ease-in-out mt-2 w-full"
+          onClick={handleGenerateImage}
+        >
+          Generate Image
+        </button>
+        {error && <p className="text-red-500 mt-2">{error}</p>}
+      </div>
+      <div className="book-display-area">
+        <div className="image-gallery grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4">
+          {images.map((url, index) => (
+            <img
+              key={index}
+              src={url}
+              alt={`Scene ${index + 1}`}
+              className="rounded shadow-lg w-full h-auto object-contain"
+            />
+          ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
