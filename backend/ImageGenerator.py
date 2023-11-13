@@ -15,10 +15,10 @@ def generate_image():
     
     try:
         response = client.images.generate(
-            model="dall-e-2",
+            model="dall-e-3",
             prompt=prompt,
             n=1,
-            size="1024x1024"
+            size="1024x1792"
         )
         # Assuming the response contains a direct URL to the image
         image_url = response.data[0].url

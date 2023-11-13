@@ -1,0 +1,36 @@
+{
+    "short_name": "Story-Teller",
+    "name": "Story-Teller",
+    "icons": [
+      {
+        "src": "png1.jpeg"
+      },
+      {
+        "src": "png2.jpeg"
+      },
+      {
+        "src": "png3.jpeg"
+      },
+      {
+        "src": "png4.jpeg"
+      },
+      {
+        "src": "png5.jpeg"
+      },
+      {
+        "src": "png6.jpeg"
+      },
+      {
+        "src": "png7.jpeg"
+      },
+      {
+        "src": "png8.jpeg"
+      },
+      {
+        "src": "png9.jpeg"
+      },
+      {
+        "src": "png10.jpeg"
+      }
+    ]
+  }
